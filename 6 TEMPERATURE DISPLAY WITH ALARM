@@ -1,0 +1,83 @@
+#include <LiquidCrystal.h>
+int baselineTemp = 0;
+int celsius = 0;
+int fahrenheit = 0;
+int buzzer=7;
+const int rs = 6, en = 5, d4 = 12, d5 = 2, d6 = 3, d7 = 4;
+LiquidCrystal lcd(rs, en, d4, d5, d6, d7);
+void setup()
+{
+  pinMode(A0, INPUT);
+  Serial.begin(9600);
+  lcd.print("Temperture: ");
+  pinMode(7,OUTPUT);
+  pinMode(8, OUTPUT);
+  pinMode(9, OUTPUT);
+  pinMode(10, OUTPUT);
+  pinMode(11, OUTPUT);
+
+}
+void loop()
+{
+  lcd.begin(16, 2);
+  // set threshold temperature to activate LEDs
+  lcd.print("Temperture: ");
+  baselineTemp = 30;
+  // measure temperature in Celsius
+  celsius = map(((analogRead(A0) - 20) * 3.04), 0, 1023, -40, 125);
+   // convert to Fahrenheit
+  fahrenheit = ((celsius * 9) / 5 + 32);
+  Serial.print(celsius);
+  Serial.print(" C, ");
+  Serial.print(fahrenheit);
+  Serial.println(" F");
+  if (celsius < baselineTemp) {
+    digitalWrite(8, LOW);
+    digitalWrite(9, LOW);
+    digitalWrite(10, LOW);
+    digitalWrite(11, LOW);
+  }
+
+  if (celsius >= baselineTemp && celsius < baselineTemp + 10) {
+    digitalWrite(8, HIGH);
+    digitalWrite(9, LOW);
+    digitalWrite(10, LOW);
+    digitalWrite(11, LOW);
+    noTone(buzzer); //peizo wont ring
+
+  }
+  if (celsius >= baselineTemp + 10 && celsius < baselineTemp + 20) {
+    digitalWrite(8, HIGH);
+    digitalWrite(9, HIGH);
+    digitalWrite(10, LOW);
+    digitalWrite(11, LOW);
+    noTone(buzzer); //peizo wont ring
+
+  }
+  if (celsius >= baselineTemp + 20 && celsius < baselineTemp + 30) {
+    digitalWrite(8, HIGH);
+    digitalWrite(9, HIGH);
+    digitalWrite(10, HIGH);
+    digitalWrite(11, LOW);
+    tone(buzzer,500, 100); //piezo rings 
+
+  }
+  if (celsius >= baselineTemp + 30) {
+    digitalWrite(8, HIGH);
+    digitalWrite(9, HIGH);
+    digitalWrite(10, HIGH);
+    digitalWrite(11, HIGH);
+    tone(buzzer,500, 100); //piezo rings 
+  }
+  delay(100);
+  lcd.setCursor(0, 1);
+  lcd.print(celsius);
+  lcd.setCursor(2,1);
+  lcd.print("C");
+  lcd.setCursor(4, 1);
+  lcd.print(fahrenheit);
+  lcd.setCursor(7,1);
+  lcd.print("F");
+  delay(500);
+
+}
