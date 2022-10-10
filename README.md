@@ -1,2 +1,2 @@
 # IoT-Application
-Mini project of IoT
+Mini project of IoT Using Arduino
