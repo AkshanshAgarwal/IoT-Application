@@ -1,0 +1,42 @@
+// C++ code
+//
+int REDPIN=13, BLUEPIN=12,GREENPIN=11;
+void setup()
+{
+  pinMode(REDPIN, OUTPUT);
+  pinMode(BLUEPIN, OUTPUT);
+  pinMode(GREENPIN, OUTPUT);
+
+}
+void loop()
+{
+  digitalWrite(REDPIN, HIGH);
+  digitalWrite(BLUEPIN, LOW);
+  digitalWrite(GREENPIN, LOW);
+  delay(1000); // Wait for 1000 millisecond(s)
+  
+  digitalWrite(REDPIN, LOW);
+  digitalWrite(BLUEPIN, HIGH);
+  digitalWrite(GREENPIN, LOW);
+  delay(1000); // Wait for 1000 millisecond(s)
+  
+  digitalWrite(REDPIN, LOW);
+  digitalWrite(BLUEPIN, LOW);
+  digitalWrite(GREENPIN, HIGH);
+  delay(1000); // Wait for 1000 millisecond(s)
+  
+  digitalWrite(REDPIN, HIGH);
+  digitalWrite(BLUEPIN, LOW);
+  digitalWrite(GREENPIN, HIGH);
+  delay(1000); // Wait for 1000 millisecond(s)
+  
+  digitalWrite(REDPIN, LOW);
+  digitalWrite(BLUEPIN, HIGH);
+  digitalWrite(GREENPIN, HIGH);
+  delay(1000); // Wait for 1000 millisecond(s)
+  
+  digitalWrite(REDPIN, HIGH);
+  digitalWrite(BLUEPIN, HIGH);
+  digitalWrite(GREENPIN, LOW);
+  delay(1000); // Wait for 1000 millisecond(s)
+}
