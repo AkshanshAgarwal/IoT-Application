@@ -1,0 +1,200 @@
+const int pingPin1 = A2;
+const int pingPin2 = A0;
+const int pingPin3 = A3;
+const int pingPin4 = A1;
+
+const int redPin1 = 10;
+const int orangePin1 = 9;
+const int greenPin1 = 8;
+const int redPin2 = 4;
+const int orangePin2 = 3;
+const int greenPin2 = 2;
+const int redPin3 = 13;
+const int orangePin3 = 12;
+const int greenPin3 = 11;
+const int redPin4 = 7;
+const int orangePin4 = 6;
+const int greenPin4 = 5;
+
+void setup() {
+Serial.begin(9600);
+ pinMode(redPin1, OUTPUT);
+ pinMode(orangePin1, OUTPUT);
+ pinMode(greenPin1, OUTPUT);
+ pinMode(redPin2, OUTPUT);
+ pinMode(orangePin2, OUTPUT);
+ pinMode(greenPin2, OUTPUT);
+ pinMode(redPin3, OUTPUT);
+ pinMode(orangePin3, OUTPUT);
+ pinMode(greenPin3, OUTPUT);
+ pinMode(redPin4, OUTPUT);
+ pinMode(orangePin4, OUTPUT);
+ pinMode(greenPin4, OUTPUT);
+}
+void loop() {
+ long duration, cm;
+ pinMode(pingPin1,OUTPUT);
+ digitalWrite(pingPin1,LOW);
+ delayMicroseconds(2);
+ digitalWrite(pingPin1,HIGH);
+ delayMicroseconds(5);
+ digitalWrite(pingPin1,LOW);
+ pinMode(pingPin1,INPUT);
+ duration = pulseIn(pingPin1, HIGH);
+ // convert the time into a distance
+ cm = microsecondsToCentimeters(duration);
+ // Print the distance
+Serial.print("Distance 1: ");
+Serial.print(cm);
+Serial.print("cm");
+Serial.println();
+Code0:
+// Turn on the LED if the object is too close:
+ if(cm < 20) {
+ digitalWrite(redPin1, HIGH);
+ digitalWrite(orangePin1,HIGH);
+ digitalWrite(greenPin1,HIGH);
+}
+ else if(cm < 50){
+ digitalWrite(redPin1, LOW);
+ digitalWrite(orangePin1, HIGH);
+ digitalWrite(greenPin1, HIGH);
+
+}
+  else{
+     digitalWrite(redPin1, LOW);
+    digitalWrite(orangePin1,LOW);
+    digitalWrite(greenPin1,HIGH);
+
+}
+ delay(500);
+  
+//FOR THE SECOND ULTRASONIC SENSOR
+
+
+ pinMode(pingPin2,OUTPUT);
+ digitalWrite(pingPin2,LOW);
+ delayMicroseconds(2);
+ digitalWrite(pingPin2,HIGH);
+ delayMicroseconds(5);
+ digitalWrite(pingPin2,LOW);
+ pinMode(pingPin2,INPUT);
+ duration = pulseIn(pingPin2, HIGH);
+ // convert the time into a distance
+ cm = microsecondsToCentimeters(duration);
+ // Print the distance
+Serial.print("Distance 2: ");
+Serial.print(cm);
+Serial.print("cm");
+Serial.println();
+Code2:
+// Turn on the LED if the object is too close:
+ if(cm < 20) {
+ digitalWrite(redPin2, HIGH);
+ digitalWrite(orangePin2,HIGH);
+ digitalWrite(greenPin2,HIGH);
+}
+ else if(cm < 50){
+ digitalWrite(redPin2, LOW);
+ digitalWrite(orangePin2, HIGH);
+ digitalWrite(greenPin2, HIGH);
+
+}
+  else{
+     digitalWrite(redPin2, LOW);
+    digitalWrite(orangePin2,LOW);
+    digitalWrite(greenPin2,HIGH);
+
+}
+ delay(500);
+  
+  
+  //FOR THE THIRD ULTRASONIC SENSOR
+
+  
+pinMode(pingPin3,OUTPUT);
+ digitalWrite(pingPin3,LOW);
+ delayMicroseconds(2);
+ digitalWrite(pingPin3,HIGH);
+ delayMicroseconds(5);
+ digitalWrite(pingPin3,LOW);
+ pinMode(pingPin3,INPUT);
+ duration = pulseIn(pingPin3, HIGH);
+ // convert the time into a distance
+ cm = microsecondsToCentimeters(duration);
+ // Print the distance
+Serial.print("Distance 3: ");
+Serial.print(cm);
+Serial.print("cm");
+Serial.println();
+Code3:
+// Turn on the LED if the object is too close:
+ if(cm < 20) {
+ digitalWrite(redPin3, HIGH);
+ digitalWrite(orangePin3,HIGH);
+ digitalWrite(greenPin3,HIGH);
+}
+ else if(cm < 50){
+ digitalWrite(redPin3, LOW);
+ digitalWrite(orangePin3, HIGH);
+ digitalWrite(greenPin3, HIGH);
+
+}
+  else{
+     digitalWrite(redPin3, LOW);
+    digitalWrite(orangePin3,LOW);
+    digitalWrite(greenPin3,HIGH);
+
+}
+ delay(500);
+  
+  
+ //FOR THE FOURTH ULTRASONIC SENSOR
+ 
+    
+  
+  pinMode(pingPin4,OUTPUT);
+ digitalWrite(pingPin4,LOW);
+ delayMicroseconds(2);
+ digitalWrite(pingPin4,HIGH);
+ delayMicroseconds(5);
+ digitalWrite(pingPin4,LOW);
+ pinMode(pingPin4,INPUT);
+ duration = pulseIn(pingPin4, HIGH);
+ // convert the time into a distance
+ cm = microsecondsToCentimeters(duration);
+ // Print the distance
+Serial.print("Distance 4: ");
+Serial.print(cm);
+Serial.print("cm");
+Serial.println();
+Code1:
+// Turn on the LED if the object is too close:
+ if(cm < 20) {
+ digitalWrite(redPin4, HIGH);
+ digitalWrite(orangePin4,HIGH);
+ digitalWrite(greenPin4,HIGH);
+}
+ else if(cm < 50){
+ digitalWrite(redPin4, LOW);
+ digitalWrite(orangePin4, HIGH);
+ digitalWrite(greenPin4, HIGH);
+
+}
+  else{
+     digitalWrite(redPin4, LOW);
+    digitalWrite(orangePin4,LOW);
+    digitalWrite(greenPin4,HIGH);
+
+}
+ delay(500);
+}
+
+long microsecondsToCentimeters(long microseconds) {
+ // The speed of sound is 340 m/s or 29 microseconds per centimeter.
+ // The ping travels out and back, so to find the distance of the
+ // object we take half of the distance travelled.
+ return microseconds / 29 / 2;
+}
+
+
