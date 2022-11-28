@@ -1,0 +1,70 @@
+#include <LiquidCrystal.h>
+int red_LED_PIN = 13;
+int orange_LED_PIN = 12;
+int yellow_LED_PIN = 11;
+int green_LED_PIN =10;
+int motor = 9;
+int smoke_detector = A0;
+int safety_lim = 75; //Sets smoke density safe limit
+
+const int rs = 7, en = 8, d4 = 3, d5 = 4, d6 = 5, d7 = 6;
+LiquidCrystal lcd(rs, en, d4, d5, d6, d7);
+
+void setup() {
+  lcd.begin(16, 2);
+  // Print a message to the LCD.
+  lcd.print("Sensor Reading : ");
+  pinMode(red_LED_PIN, OUTPUT);
+  pinMode(orange_LED_PIN, OUTPUT); 
+  pinMode(yellow_LED_PIN, OUTPUT);
+  pinMode(green_LED_PIN, OUTPUT);
+  pinMode(motor, OUTPUT);
+  pinMode(smoke_detector, INPUT);
+  Serial.begin(9600); //baud rate
+  
+}
+
+void loop() {
+  int sensor_read = analogRead(smoke_detector); 
+  	//reads and stores the reading from the detector in sensor_read
+  
+  Serial.print("Smoke Density: ");
+  Serial.println(sensor_read);
+  
+  if (sensor_read > 75)
+    // Checks if reading is beyond safety limit
+  {
+	analogWrite(red_LED_PIN,255);
+    analogWrite(orange_LED_PIN,0);
+    analogWrite(yellow_LED_PIN,0);
+    analogWrite(green_LED_PIN, 0);
+    tone(motor,800, 500); //motor rotate at high speed
+  }
+  else if(sensor_read>50 )
+  {
+    analogWrite(red_LED_PIN,0);
+    analogWrite(orange_LED_PIN,255);
+    analogWrite(yellow_LED_PIN,0);
+    analogWrite(green_LED_PIN, 0);
+    tone(motor,400,200); //motor rotate at lower speed
+  }
+  else if(sensor_read >25)
+  {
+    analogWrite(red_LED_PIN,0);
+    analogWrite(orange_LED_PIN,0);
+    analogWrite(yellow_LED_PIN,255);
+    analogWrite(green_LED_PIN, 0);
+    noTone(motor); //motor will not rotate
+  }
+  else
+  {
+    analogWrite(red_LED_PIN,0);
+    analogWrite(orange_LED_PIN,0);
+    analogWrite(yellow_LED_PIN,0);
+    analogWrite(green_LED_PIN, 255);
+    noTone(motor);//motor will not rotate
+  }
+  delay(50);
+  lcd.setCursor(0, 1);
+  lcd.print(sensor_read);
+}
